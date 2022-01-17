@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // creating a auto-refreshing client from the fetched access-credentials
     AutoRefreshingAuthClient authClient = autoRefreshingClient(
       ClientId(
-          '566804110461-f8uuc235otkefg47r9qfpnsdna0g5ihq.apps.googleusercontent.com',
+          '',
           ''),
       creds,
       client,
