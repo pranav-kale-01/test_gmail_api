@@ -75,10 +75,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Welcome to Flutter",
-      home: Scaffold(
-        appBar: AppBar(),
-        body: buildFutureBuilder(),
-      ),
+      home: buildFutureBuilder(),
     );
   }
 }

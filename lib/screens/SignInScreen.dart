@@ -11,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:test_gmail_api/screens/HomeScreen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -81,17 +80,21 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-      alignment: Alignment.center,
-      child: ElevatedButton(
-        onPressed: () async {
-          await obtainCredentials(context);
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        child: ElevatedButton(
+          onPressed: () async {
+            await obtainCredentials(context);
 
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
-        },
-        child: const Text('Sign in'),
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) {
+                return const HomeScreen( );
+              }),
+            );
+          },
+          child: const Text('Sign in'),
+        ),
       ),
     );
   }

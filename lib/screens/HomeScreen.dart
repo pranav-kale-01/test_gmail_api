@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,6 +8,7 @@ import 'package:googleapis/gmail/v1.dart' as gmail;
 
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:test_gmail_api/screens/SignInScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -78,8 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
     AutoRefreshingAuthClient authClient = autoRefreshingClient(
       ClientId(
           '566804110461-f8uuc235otkefg47r9qfpnsdna0g5ihq.apps.googleusercontent.com',
-          ''
-      ),
+          ''),
       creds,
       client,
     );
@@ -94,19 +93,20 @@ class _HomeScreenState extends State<HomeScreen> {
       AutoRefreshingAuthClient authClient = await obtainCredentials(context);
       gmail.GmailApi api = gmail.GmailApi(authClient);
 
-      gmail.ListMessagesResponse clientMessages = await api.users.messages.list( 'me', maxResults: 10);
+      gmail.ListMessagesResponse clientMessages =
+          await api.users.messages.list('me', maxResults: 10);
 
       List<String> msgIds = clientMessages.messages!.map((message) {
         return message.id.toString();
-        // return message.snippet.toString();
       }).toList();
 
       for (String id in msgIds) {
-        gmail.Message msg = await api.users.messages.get('me', id, format: 'raw');
+        gmail.Message msg =
+            await api.users.messages.get('me', id, format: 'raw');
         msgSnippets.add(msg.snippet.toString());
       }
     } catch (e) {
-      debugPrint( e.toString() );
+      debugPrint(e.toString());
     }
 
     return msgSnippets;
@@ -122,9 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
               return Card(
                 elevation: 10,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   alignment: Alignment.center,
-                  child: Text( msgIds[index] ),
+                  child: Text(msgIds[index]),
                 ),
               );
             },
@@ -150,8 +151,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: buildFutureBuilder()
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Application'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final file = await _localFile;
+              file.delete();
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const SignInScreen() )
+              );
+            },
+            icon: const Icon(
+              Icons.logout,
+            ),
+          ),
+        ],
+      ),
+      body: Container(child: buildFutureBuilder()),
     );
   }
 }
