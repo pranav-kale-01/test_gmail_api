@@ -1,6 +1,6 @@
 # test_gmail_api
 
-A new Flutter project.
+A Basic Gmail Application using Google's Gmail Api and OAuth 2.0
 
 ## Getting Started
 
