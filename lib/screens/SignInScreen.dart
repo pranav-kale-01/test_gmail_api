@@ -62,7 +62,7 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       AutoRefreshingAuthClient authClient = await clientViaUserConsent(
         ClientId(
-          '566804110461-f8uuc235otkefg47r9qfpnsdna0g5ihq.apps.googleusercontent.com',
+          '',
           '',
         ),
         [gmail.GmailApi.gmailReadonlyScope],
